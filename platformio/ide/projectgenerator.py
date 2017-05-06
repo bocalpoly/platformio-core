@@ -124,6 +124,7 @@ class ProjectGenerator(object):
         content = ""
         with open(tpl_path) as f:
             content = f.read()
+        print "_render_tpl", self._tplvars
         return bottle.template(content, **self._tplvars)
 
     @staticmethod
