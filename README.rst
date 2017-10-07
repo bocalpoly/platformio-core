@@ -1,27 +1,6 @@
 PlatformIO
 ==========
 
-.. image:: https://travis-ci.org/platformio/platformio-core.svg?branch=develop
-    :target: https://travis-ci.org/platformio/platformio-core
-    :alt: Travis.CI Build Status
-.. image:: https://ci.appveyor.com/api/projects/status/unnpw0n3c5k14btn/branch/develop?svg=true
-    :target: https://ci.appveyor.com/project/ivankravets/platformio-core
-    :alt: AppVeyor.CI Build Status
-.. image:: https://requires.io/github/platformio/platformio-core/requirements.svg?branch=develop
-    :target: https://requires.io/github/platformio/platformio-core/requirements/?branch=develop
-    :alt: Requirements Status
-.. image:: https://img.shields.io/pypi/v/platformio.svg
-    :target: https://pypi.python.org/pypi/platformio/
-    :alt: Latest Version
-.. image:: https://img.shields.io/pypi/l/platformio.svg
-    :target: https://pypi.python.org/pypi/platformio/
-    :alt:  License
-.. image:: https://img.shields.io/PlatformIO/Community.png
-   :alt: Community Forums
-   :target: https://community.platformio.org
-.. image:: https://img.shields.io/PlatformIO/Plus.png?color=orange
-   :alt: PlatformIO Plus: Professional solutions for an awesome open source PlatformIO ecosystem
-   :target: https://pioplus.com
 
 **Quick Links:** `Home Page <http://platformio.org>`_ |
 `PlatformIO Plus <https://pioplus.com>`_ |
@@ -31,25 +10,7 @@ PlatformIO
 `Donate <http://platformio.org/donate>`_ |
 `Contact Us <https://pioplus.com/contact.html>`_
 
-**Social:** `Twitter <https://twitter.com/PlatformIO_Org>`_ |
-`Facebook <https://www.facebook.com/platformio>`_ |
-`Hackaday <https://hackaday.io/project/7980-platformio>`_ |
-`Bintray <https://bintray.com/platformio>`_ |
-`Community <https://community.platformio.org>`_
 
-.. image:: https://raw.githubusercontent.com/platformio/platformio-web/develop/app/images/platformio-ide-laptop.png
-    :target: http://platformio.org
-
-`PlatformIO <http://platformio.org>`_ is an open source ecosystem for IoT
-development. Cross-platform IDE and unified debugger. Remote unit testing and
-firmware updates.
-
-Get Started
------------
-
-* `What is PlatformIO? <http://docs.platformio.org/page/what-is-platformio.html>`_
-
-Products
 --------
 
 * `PlatformIO IDE <http://platformio.org/platformio-ide>`_
@@ -126,3 +87,77 @@ Copyright (c) 2014-present PlatformIO <contact@platformio.org>
 
 The PlatformIO is licensed under the permissive Apache 2.0 license,
 so you can use it in both commercial and personal projects with confidence.
+
+
+
+
+1. Make sure python 2.7 is installed
+2. sudo python -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/develop/scripts/get-platformio.py)"
+3. Restart the terminal
+4. platformio --help
+5. create new direcotry 
+   mkdir smartfarm
+6. go to it  cd smartfarm
+7. Initialize project  
+   platformio init --board uno
+8. Create main.cpp file and place it to src folder 
+
+/**
+ * Blink
+ *
+ * Turns on an LED on for one second,
+ * then off for one second, repeatedly.
+ */
+#include "Arduino.h"
+
+#ifndef LED_BUILTIN
+#define LED_BUILTIN 13
+#endif
+
+void setup()
+{
+  // initialize LED digital pin as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop()
+{
+  // turn the LED on (HIGH is the voltage level)
+  digitalWrite(LED_BUILTIN, HIGH);
+
+  // wait for a second
+  delay(1000);
+
+  // turn the LED off by making the voltage LOW
+  digitalWrite(LED_BUILTIN, LOW);
+
+   // wait for a second
+  delay(1000);
+}
+
+9. The final Project structure:
+
+smartfarm
+├── lib
+│   └── readme.txt
+├── platformio.ini
+└── src
+    └── main.cpp
+10.platformio run        Building the file + (download necessary packages)
+11.platformio run --target upload      upload the file
+
+
+12.creat a shellscript
+   	#!/bin/bash
+	cd smartfarm
+	sudo platformio run --target upload 
+
+13. make your script executable: sudo chmod +x /home/pi/smartfarm/launcher.sh
+14. execute your script:    sudo /home/pi/smartfarm/launcher.sh
+
+15. Add the shell script the the startup
+    cd ~
+    sudo nano .bashrc
+    Scroll down to the bottom and add the line: /home/pi/smartfarm/launcher.sh
+    Ctrl+X, Y, Enter
+
